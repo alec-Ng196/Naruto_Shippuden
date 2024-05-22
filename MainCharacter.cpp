@@ -35,12 +35,18 @@ MainObject::~MainObject(){
 }
 
 void MainObject::reset() {
+    input_type.left = 0;
+    input_type.right = 0;
+    is_dashing = false;
+    input_type.attack = 0;
+    input_type.throwing = 0;
+    input_type.stance = 1;
     frame = 0;
     x_pos = 0;
     y_pos = 0;
     x_val = 0;
     y_val = 0;
-    status = Idle;
+    status = Fall_reset;
     map_x_ = 0;
     map_y_ = 0;
     revive_time = 0;
@@ -92,7 +98,7 @@ void MainObject::ShowMain(SDL_Renderer* des){
     if(is_damaged){
         frame++;
         UpdateStats(des);
-        is_damaged = false;
+        //is_damaged = false;
     }
     if(is_dashing){
         frame++;
@@ -214,7 +220,7 @@ void MainObject::Handle(SDL_Event events, SDL_Renderer* screen){
 
             }
                 break;
-            case SDLK_l:
+            case SDLK_f:
             {
                 input_type.dash = 1;
                 is_dashing = true;
@@ -268,7 +274,7 @@ void MainObject::Handle(SDL_Event events, SDL_Renderer* screen){
                 input_type.stance = 1;
             }
                 break;
-            case SDLK_l:
+            case SDLK_f:
             {
                 input_type.dash = 0;
                 input_type.stance = 1;
@@ -337,8 +343,11 @@ void MainObject::Player_action(Map &map_data){
         if(!is_damaged && !is_attacking && input_type.guard == 0 && left_pressed && is_dashing && is_ground){
             x_val -= 10*PLAYER_SPEED;
         }
-        else if(is_damaged){
+        if(is_damaged && right_pressed && !left_pressed){
             x_val -= (PLAYER_SPEED*4);
+        }
+        else if(is_damaged && left_pressed && !right_pressed){
+            x_val += (PLAYER_SPEED*4);
         }
         if(input_type.jump == 1){
             if (is_ground){
@@ -567,10 +576,13 @@ void MainObject::UpdateStats(SDL_Renderer *des) {
             LoadingIMG("img\\guard_left.png", des);
         }
         else if(is_damaged && right_pressed && !left_pressed){
-            LoadingIMG("img\\naruto_knocked.png", des);
+            LoadingIMG("img\\naruto_knocked_left.png", des);
+        }
+        else if(is_damaged && !right_pressed && left_pressed){
+            LoadingIMG("img\\naruto_knocked_right.png", des);
         }
         if(right_pressed && !left_pressed && is_dashing){
-            LoadingIMG("img\\Dash_right.png" ,des);
+            LoadingIMG("img\\Dash_right.png",des);
         }
         else if(left_pressed && !right_pressed && is_dashing){
             LoadingIMG("img\\Dash_left.png", des);

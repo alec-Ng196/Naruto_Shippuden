@@ -29,7 +29,6 @@ bool HealthPower::LoadingIMG(std::string name, SDL_Renderer *screen){
 
 void HealthPower::Set_clips_() {
     if (width_fr_ > 0 && height_fr_ > 0) {
-
         for(int i = 0; i < FRAME_HP; i++){
             frame_clip_[i].x = width_fr_ * i;
             frame_clip_[i].y = 0;

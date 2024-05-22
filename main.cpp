@@ -27,21 +27,11 @@ Button startButton, helpButton, backButton, exitButton, resumeButton, nextButton
 TTF_Font* font_time = NULL;
 int option = START;
 Mix_Music* g_start = NULL;
-Mix_Music * g_winBoss = NULL;
+Mix_Music* g_winBoss = NULL;
+Mix_Music* g_intro = NULL;
 static bool musicPlayed1 = false; // Biến static để giữ trạng thái của âm thanh đã được phát hay chưa
 static bool musicPlayed2 = false;
-
-void playMusic(Mix_Music *gMusic)
-{
-    if (gMusic == nullptr) return;
-
-    if (Mix_PlayingMusic() == 0) {
-        Mix_PlayMusic( gMusic, -1 );
-    }
-    else if( Mix_PausedMusic() == 1 ) {
-        Mix_ResumeMusic();
-    }
-}
+static bool introMusicPlayed = false;
 
 
 int main(int argc, char* argv[]){
@@ -51,7 +41,7 @@ int main(int argc, char* argv[]){
     if (!loading_Media()) return -1;
 
     Game_Map good_map; //Bắt đầu init Tile_map
-    good_map.LoadMap("map_matrix.txt");
+    good_map.LoadMap("assets\\map_matrix.txt");
     good_map.LoadingTiles(g_screen);
 
     MainObject g_player; //Init nhân vật Naruto
@@ -92,8 +82,8 @@ int main(int argc, char* argv[]){
 
     //Start init BOSS
     BossObj bossObject;
-    bool ret = bossObject.LoadingIMG("img\\Boss(1).png",g_screen);
-    bossObject.set_clips_();
+    //bool ret = bossObject.LoadingIMG("img\\Boss(1).png",g_screen);
+    //bossObject.set_clips_();
     int XposBOSS = MAX_MAP_X * TILE_SZ - SCREEN_WIDTH*0.2;
     //int XposBOSS = 500;
     bossObject.set_Xpos(XposBOSS);
@@ -144,7 +134,19 @@ int main(int argc, char* argv[]){
 
         switch (option) {
             case START: //Menu
+            introMusicPlayed = false;
                 while (SDL_PollEvent(&g_event) != 0) {
+                    if(!introMusicPlayed){
+                        g_intro = Mix_LoadMUS("assets\\Intro_naruto.mp3");
+                        if(option == START){
+                            if(g_intro && Mix_PlayingMusic() == 0 )
+                            {
+                                Mix_PlayMusic(g_intro, -1);
+                            }
+                            introMusicPlayed = true;
+                        }
+                    }
+
                     startButton.handleEvent(&g_event);
                     helpButton.handleEvent(&g_event);
                     exitButton.handleEvent(&g_event);
@@ -153,8 +155,14 @@ int main(int argc, char* argv[]){
                         break;
                     }
                     if (startButton.click()) {
-
+                        if (g_intro) {
+                            Mix_HaltMusic();
+                            Mix_FreeMusic(g_intro);
+                            g_intro = nullptr;
+                        }
                         resetGame(g_player, good_map, threats_list, bossObject, player_hp, player_chakra);
+                        bool ret = bossObject.LoadingIMG("img\\Boss(1).png",g_screen);
+                        bossObject.set_clips_();
                         hp = 5;
                         g_player.set_option(PLAY);
                         option = PLAY;
@@ -352,7 +360,7 @@ int main(int argc, char* argv[]){
                                         player_hp.setRect(20, 0);
                                         player_hp.Show_HP(g_screen);
 
-                                        SDL_Delay(500);
+                                        //SDL_Delay(500);
                                         continue;
                                     } else {
                                         g_threat->FreeObject();
@@ -467,7 +475,6 @@ int main(int argc, char* argv[]){
 
 
 
-
                 //Load Boss in game
 
                 int val = MAX_MAP_X * TILE_SZ - (map_data.begin_x + g_player.GetRect().x);
@@ -509,7 +516,7 @@ int main(int argc, char* argv[]){
                                         player_hp.setRect(20, 0);
                                         player_hp.Show_HP(g_screen);
 
-                                        SDL_Delay(500);
+                                        //SDL_Delay(500);
 
 
                                         continue;
@@ -813,7 +820,7 @@ void resetGame(MainObject& g_player, Game_Map& good_map, vector<Enemy*>& threats
     bossObject.reset();
     bossObject.set_Xpos(MAX_MAP_X * TILE_SZ - SCREEN_WIDTH * 0.2);
     bossObject.set_Ypos(30);
-
+    bossObject.set_clips_();
     // Reset thanh máu
 
     player_hp.reset();
@@ -895,7 +902,7 @@ void close(){
     Mix_FreeMusic(g_start);
     g_start = NULL;
     Mix_FreeMusic(g_winBoss);
-    g_window = NULL;
+    g_winBoss = NULL;
 
     Mix_Quit();
     IMG_Quit();
