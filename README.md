@@ -11,7 +11,10 @@ Nguyễn Tuấn Đức
 
 
 # Cách chơi
+![z5456868224566_15214550d4ec17341402830364a09a3d](https://github.com/alec-Ng196/Naruto_Shippuden/assets/163379142/2abadce9-b835-48c8-9366-b5f98543ccf5)
+
 -
+
 ![z5456868182301_b1eafa5c824cf3f749c59345e35c3195](https://github.com/alec-Ng196/Naruto_Shippuden/assets/163379142/6e17ed5a-bb60-4c7d-8012-e3e0d73b8578)
 
 -
