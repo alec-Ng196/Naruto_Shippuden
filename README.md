@@ -5,7 +5,7 @@ Nguyễn Tuấn Đức
 # Mô tả
 -SHINOBI LEGENDS: THE NARUTO SAGA ...
 
-![feature-img](file:///C:/Users/Admin/AppData/Local/ZaloPC/2200380378147588537/ZaloDownloads/picture/7012997665609231459/z5456868239867_093a3aee92e0777f16a4228337759b77.jpg)
+![z5456868239867_093a3aee92e0777f16a4228337759b77](https://github.com/alec-Ng196/Naruto_Shippuden/assets/163379142/076adbd3-5133-43aa-b7d2-d6654b315ee1)
 
 - 
 
