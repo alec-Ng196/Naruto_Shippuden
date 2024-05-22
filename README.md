@@ -5,7 +5,7 @@ Nguyễn Tuấn Đức
 # Mô tả
 -SHINOBI LEGENDS: THE NARUTO SAGA ...
 
-![Screenshot 2024-05-22 225953](https://github.com/DungTN22/Tower-defense/assets/161128678/43be197e-dbc5-43bb-93e1-677043ae0e17)
+![Screenshot 2024-05-22 225953](file:///C:/Users/Admin/AppData/Local/ZaloPC/2200380378147588537/ZaloDownloads/picture/7012997665609231459/z5456868239867_093a3aee92e0777f16a4228337759b77.jpg)
 
 - 
 
