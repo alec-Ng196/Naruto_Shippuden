@@ -1,6 +1,6 @@
 # AUTHOR 
 Nguyễn Tuấn Đức
--23020601
+- 23020601
 
 # INTRODUCTION
 -SHINOBI LEGENDS: THE NARUTO SAGA là game bom tấn nhẫn giả đỉnh cao với sự chất lượng về đồ họa, cũng như các tính năng, các map cũng sẽ được cập nhật, phát triển mạnh mẽ hơn nữa. 
